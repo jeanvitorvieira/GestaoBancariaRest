@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "uO+Wye9Zs1k=",
+  "success": true,
+  "projectFilePath": "/home/jeanvv/RiderProjects/GestaoBancaria_01_2026/Entidades/Entidades.csproj",
+  "expectedPackageFiles": [
+    "/home/jeanvv/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.25/microsoft.aspnetcore.app.ref.8.0.25.nupkg.sha512"
+  ],
+  "logs": []
+}

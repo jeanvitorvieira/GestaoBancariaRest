@@ -1,0 +1,162 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Aplicacao",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/ContasBancarias": {
+      "post": {
+        "tags": [
+          "ContasBancarias"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InserirContaDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InserirContaDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/InserirContaDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ContasBancarias"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ContasBancarias/{Id}": {
+      "get": {
+        "tags": [
+          "ContasBancarias"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/ContasBancarias/movimentos": {
+      "post": {
+        "tags": [
+          "ContasBancarias"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InserirMovimentoDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InserirMovimentoDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/InserirMovimentoDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EnumTipoConta": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "EnumTipoMovimento": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "InserirContaDTO": {
+        "type": "object",
+        "properties": {
+          "titular": {
+            "type": "string",
+            "nullable": true
+          },
+          "numeroConta": {
+            "type": "string",
+            "nullable": true
+          },
+          "tipoConta": {
+            "$ref": "#/components/schemas/EnumTipoConta"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InserirMovimentoDTO": {
+        "type": "object",
+        "properties": {
+          "contaBancariaId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "valor": {
+            "type": "number",
+            "format": "double"
+          },
+          "tipoMovimento": {
+            "$ref": "#/components/schemas/EnumTipoMovimento"
+          },
+          "descricao": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

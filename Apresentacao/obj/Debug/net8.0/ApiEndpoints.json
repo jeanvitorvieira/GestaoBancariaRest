@@ -1,0 +1,60 @@
+[
+  {
+    "ContainingType": "Aplicacao.ContasBancariasController",
+    "Method": "Inserir",
+    "RelativePath": "api/ContasBancarias",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "inserirContaDTO",
+        "Type": "Entidades.InserirContaDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Aplicacao.ContasBancariasController",
+    "Method": "BuscarContas",
+    "RelativePath": "api/ContasBancarias",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Aplicacao.ContasBancariasController",
+    "Method": "BuscarContaPorId",
+    "RelativePath": "api/ContasBancarias/{Id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Aplicacao.ContasBancariasController",
+    "Method": "EnviarPix",
+    "RelativePath": "api/ContasBancarias/movimentos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Entidades.InserirMovimentoDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

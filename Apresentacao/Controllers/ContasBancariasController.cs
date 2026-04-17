@@ -83,9 +83,8 @@ namespace Aplicacao
             }
         }
 
-        [HttpPost]
-        [Route("movimentos")]
-        public IActionResult EnviarPix(InserirMovimentoDto dto)
+        [HttpPost("movimentos")]
+        public IActionResult InserirMovimento(InserirMovimentoDto dto)
         {
             try
             {
@@ -97,7 +96,7 @@ namespace Aplicacao
                     Descricao = dto.Descricao
                 };
 
-                _contasBancariasDomain.EnviarPix(movimento);
+                _contasBancariasDomain.InserirMovimento(movimento);
 
                 return Ok();
             }

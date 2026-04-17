@@ -6,10 +6,10 @@
     {
         public int Id { get; set; }
         public int ContaBancariaId { get; set; }
-        public ContaBancaria ContaBancaria { get; set; } 
+        public ContaBancaria ContaBancaria { get; set; } = null!;
         public decimal Valor { get; set; }
         public EnumTipoMovimento TipoMovimento { get; set; }
-        public string Descricao { get; set; }
+        public string Descricao { get; set; } = string.Empty;
     }
 
     public enum EnumTipoMovimento

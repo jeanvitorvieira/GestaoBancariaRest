@@ -1,6 +1,5 @@
 ﻿using Entidades;
 using Microsoft.EntityFrameworkCore;
-using Repositorio.Migrations;
 
 namespace Repositorio.Infra
 {

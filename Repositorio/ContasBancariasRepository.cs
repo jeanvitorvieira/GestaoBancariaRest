@@ -26,7 +26,7 @@ namespace Repositorio
 
         public ContaBancaria BuscarContaPorId(int id)
         {
-            return _dataContext.ContasBancarias.Find(id) ?? throw new InvalidOperationException();
+            return _dataContext.ContasBancarias.Find(id) ?? throw new Exception($"Conta com id {id} não encontrada.");
         }
 
         public void Deletar(int id)
@@ -37,7 +37,7 @@ namespace Repositorio
             _dataContext.SaveChanges();
         }
 
-        public void EnviarPix(Movimento movimentos)
+        public void InserirMovimento(Movimento movimentos)
         {
             _dataContext.Movimentos.Add(movimentos);
 

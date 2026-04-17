@@ -5,9 +5,9 @@
     {
         public int Id { get; set; }
 
-        public string Titular { get; set; }
+        public string Titular { get; set; } = string.Empty;
 
-        public string NumeroConta { get; set; }
+        public string NumeroConta { get; set; } =  string.Empty;
 
         public EnumTipoConta TipoConta { get; set; }
         public decimal Saldo { get; set; } = 0;

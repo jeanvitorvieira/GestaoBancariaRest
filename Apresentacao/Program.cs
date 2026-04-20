@@ -7,9 +7,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-ServicesExtensionDomain.
-    ConfigurarDominio(builder.Services, 
-    builder.Configuration);
+builder.Services.ConfigurarDominio(builder.Configuration);
 
 var app = builder.Build();
 

@@ -12,7 +12,7 @@ namespace Dominio
             _contasBancariasRepository = repository;
         }
 
-        public void Inserir(ContaBancaria contaBancaria)
+        public async Task InserirAsync(ContaBancaria contaBancaria)
         {
             if (string.IsNullOrWhiteSpace(contaBancaria.Titular))
                 throw new Exception("Falta informar o titular.");
@@ -20,26 +20,26 @@ namespace Dominio
             if (string.IsNullOrWhiteSpace(contaBancaria.NumeroConta))
                 throw new Exception("Falta informar o número da conta.");
 
-            _contasBancariasRepository.Inserir(contaBancaria);
+            await _contasBancariasRepository.InserirAsync(contaBancaria);
         }
 
-        public List<ContaBancaria> BuscarContas()
+        public async Task<List<ContaBancaria>> BuscarContasAsync()
+            => await _contasBancariasRepository.BuscarContasAsync();
+
+        public async Task<ContaBancaria> BuscarContaPorIdAsync(int id)
+            => await _contasBancariasRepository.BuscarContaPorIdAsync(id);
+
+        public async Task DeletarAsync(int id)
+            => await _contasBancariasRepository.DeletarAsync(id);
+
+        public async Task<ExtratoDto> BuscarExtratoAsync(int contaId)
         {
-            return _contasBancariasRepository.BuscarContas();
+            var conta = await _contasBancariasRepository.BuscarContaPorIdAsync(contaId);
+            var movimentos = await _contasBancariasRepository.BuscarMovimentosPorContaAsync(contaId);
+            return new ExtratoDto(conta, movimentos);
         }
 
-        public ContaBancaria BuscarContaPorId(int id)
-        {
-            return _contasBancariasRepository.BuscarContaPorId(id);
-        }
-
-        public void Deletar(int id)
-        {
-            _contasBancariasRepository.Deletar(id);
-        }
-
-       
-        public void InserirMovimento(Movimento movimento)
+        public async Task InserirMovimentoAsync(Movimento movimento)
         {
             if (movimento.Valor <= 0)
                 throw new Exception("O valor do movimento deve ser maior que zero.");
@@ -47,7 +47,7 @@ namespace Dominio
             if (string.IsNullOrWhiteSpace(movimento.Descricao))
                 throw new Exception("Falta informar a descrição do movimento.");
 
-            var conta = _contasBancariasRepository.BuscarContaPorId(movimento.ContaBancariaId);
+            var conta = await _contasBancariasRepository.BuscarContaPorIdAsync(movimento.ContaBancariaId);
 
             switch (movimento.TipoMovimento)
             {
@@ -62,7 +62,7 @@ namespace Dominio
             }
 
             movimento.ContaBancaria = conta;
-            _contasBancariasRepository.InserirMovimento(movimento);
+            await _contasBancariasRepository.InserirMovimentoAsync(movimento);
         }
     }
 }

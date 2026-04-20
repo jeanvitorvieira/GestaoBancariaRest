@@ -1,4 +1,5 @@
 ﻿using Entidades;
+using Microsoft.EntityFrameworkCore;
 using Repositorio.Infra;
 
 namespace Repositorio
@@ -6,44 +7,49 @@ namespace Repositorio
     public class ContasBancariasRepository
     {
         private readonly DataContext _dataContext;
-        
+
         public ContasBancariasRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
 
-        public void Inserir(ContaBancaria contaBancaria)
+        public async Task InserirAsync(ContaBancaria contaBancaria)
         {
             _dataContext.Add(contaBancaria);
-
-            _dataContext.SaveChanges();
+            await _dataContext.SaveChangesAsync();
         }
 
-        public List<ContaBancaria> BuscarContas()
+        public async Task<List<ContaBancaria>> BuscarContasAsync()
         {
-            return _dataContext.ContasBancarias.ToList();
+            return await _dataContext.ContasBancarias.ToListAsync();
         }
 
-        public ContaBancaria BuscarContaPorId(int id)
+        public async Task<ContaBancaria> BuscarContaPorIdAsync(int id)
         {
-            return _dataContext.ContasBancarias.Find(id) ?? throw new Exception($"Conta com id {id} não encontrada.");
+            return await _dataContext.ContasBancarias.FindAsync(id)
+                   ?? throw new Exception($"Conta com id {id} não encontrada.");
         }
 
-        public void Deletar(int id)
+        public async Task DeletarAsync(int id)
         {
-            var conta = _dataContext.ContasBancarias.Find(id);
+            var conta = await _dataContext.ContasBancarias.FindAsync(id);
             if (conta == null) return;
             _dataContext.ContasBancarias.Remove(conta);
-            _dataContext.SaveChanges();
+            await _dataContext.SaveChangesAsync();
         }
 
-        public void InserirMovimento(Movimento movimentos)
+        public async Task InserirMovimentoAsync(Movimento movimento)
         {
-            _dataContext.Movimentos.Add(movimentos);
+            _dataContext.Movimentos.Add(movimento);
+            _dataContext.ContasBancarias.Update(movimento.ContaBancaria);
+            await _dataContext.SaveChangesAsync();
+        }
 
-            _dataContext.ContasBancarias.Update(movimentos.ContaBancaria);
-
-            _dataContext.SaveChanges();
+        public async Task<List<Movimento>> BuscarMovimentosPorContaAsync(int contaId)
+        {
+            return await _dataContext.Movimentos
+                .Where(m => m.ContaBancariaId == contaId)
+                .ToListAsync();
         }
     }
 }
